@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Search Page</title>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-12 ">Search Results for "{{textsearch}}"</th>
+                </tr>
+                <tr>
+                    <th class=" col-md-8"> Title</th>
+                    <th class=" col-md-2">Author</th>
+                    <th class=" col-md-2">Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="manga in results">
+                    <td class="col-md-8 acthover" ng-click="display(manga)"><a>{{manga.title}}</a></td>
+                    <td class="col-md-2">{{manga.author}}</td>
+                    <td class="col-md-2">{{manga.ratings}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>Login/Registration</title>
+</head>
+<body>
+    <div class="test">
+        <div class="container text-center" id="reg">
+
+            <form class="form-signin">
+                <h1 class="form-signin-heading">Please sign in</h1>
+                <div class=" col-md-4 col-md-offset-4 form-group">
+                    <label for="inputPassword" class="sr-only">Username</label>
+                    <input ng-model="user.username" type="text" id="username" class="form-control" placeholder="Username" required>
+                </div>
+                <div class=" col-md-4 col-md-offset-4 form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input ng-model="user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-4">
+                        <a class="btn btn btn-warning edit pull-left" ng-click="clear(newuser)"data-toggle="modal" data-target="#basicModal1">
+                            Registration
+                        </a>
+                        <button class="btn btn-default pull-right" ng-click="login(user)" data-toggle="modal" data-target="#basicModal">
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </form>
+    
+            <div ng-show="faillogin && user.username && user.password" class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4 id="wrongpass">The username and password do not match.<br /> Please retry!</h4>
+                        </div>
+
+                    </div>
+                </div>
+            </div><!--Error modal when user type wrong password and username-->
+        </div> <!-- /container -->
+    </div>
+
+    <!----------------------------------------------div for DIALOG WIDGET for Registration----------------------------------------------------->
+    <div class="modal fade" id="basicModal1" tabindex="-1" role="dialog" aria-labelledby="basicModal1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Registration Form</h2>
+                </div>
+                <form class="form-signin">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="firstname" class="sr-only">First Name</label><br />
+                            <input ng-model="newuser.firstName" type="text" id="firstname" class="form-control" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="sr-only">Last Name</label>
+                            <input ng-model="newuser.lastName" type="text" id="lastname" class="form-control" placeholder="Last Name" required>
+                        </div>
+                        <div class=" form-group">
+                            <label for="inputPassword" class="sr-only">Email</label>
+                            <input ng-model="newuser.email" type="email" id="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="sr-only">Username</label>
+                            <input ng-model="newuser.username" type="text" id="newusername" class="form-control" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input ng-model="newuser.password" type="password" id="newinputPassword" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="sr-only">Retype Password</label>
+                            <input ng-model="newuser.password2" type="password" id="newinputPassword" class="form-control" placeholder="Retype Password" required>
+                        </div>
+                        <div ng-show="newuser.password!=newuser.password2 && newuser.password2!=null" class="alert alert-danger alert-error">
+                            <strong>Error!</strong> The Password does not match
+                        </div>
+
+                    </div>
+                    <!--GIVE WARNING WHEN USER EXIST HERE-->
+                    <div ng-show="existuser" class="alert alert-warning">
+                        <strong>Warning!</strong> username already exists! Please select a  different username.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal">Cancel</button>
+                        <button  ng-click="register(newuser)" type="submit" class="btn btn-default">Register</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

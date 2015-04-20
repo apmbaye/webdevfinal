@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <link href="css/half-slider.css" rel="stylesheet" />
+    <link href="css/modern-business.css" rel="stylesheet" />
+    <link href="css/business-frontpage.css" rel="stylesheet" />
+    <link href="views/Registration/registration.css" rel="stylesheet" />
+
+    <link href="views/details/details.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/app.js"></script>
+ 
+    <script src="views/Registration/register.js"></script>
+    <script src="views/profile/profile.js"></script>
+    <script src="views/details/details.js"></script>
+    <script src="views/search/search.js"></script>
+    <script src="views/home/home.js"></script>
+   
+    <title>MangaLife</title>
+</head>
+<body ng-app="Passport">
+    <!-- Navigation -->
+    <nav ng-controller="NavCtrl" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home">Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+                   
+                    <li ng-show="!currentUser">
+                        <a href="#register">Login/Register</a>
+                    </li>
+                    <li ng-show="currentUser">
+                        <a href="#profile">Profile</a>
+                    </li>
+                    <li ng-show="currentUser">
+                        <a href="#" ng-click="logout()">Logout</a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search" name="searchbar">
+                    <div class="form-group">
+                        <input type="text" ng-minlength="3" required ng-model="textsearch" class="form-control" placeholder="Title search...(3 char min)">
+                    </div>
+                    <button ng-click="search(textsearch)" ng-show="!searchbar.$invalid" ng-disabled="searchbar.$invalid" type="submit" class="btn btn-default">Search</button>
+                </form>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    
+    <!--showing each file in here-->
+    <div ng-view>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

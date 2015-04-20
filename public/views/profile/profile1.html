@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Profile Page</title>
+</head>
+<body>
+    <div class="jumbotron" ng-show="userex">
+        <div class="container">
+            <h1>This user has been temporarily or definitively banished from our website!!! It will be decided at a later date if he can be re-integrated or not</h1>
+        </div>
+    </div>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <div class="jumbotron" ng-hide="userex">
+        <div class="container">
+            <h1 ng-show="!friend && user.role != 'admin'">Hello,{{user.firstName}} {{user.lastName}}!!! </h1>
+            <h1 ng-show="friend">Welcome to {{user.username}} 's Profile Page!!! </h1>
+            <h1 ng-show="!friend && user.role == 'admin'">Hello Admin, {{user.firstName}} {{user.lastName}} </h1>
+
+
+            <br />
+            <br />
+            
+            
+            <h2>Personal Information</h2>
+            <div ng-show="friend && user.hidePI">
+                <h4>This user doesn't wish to share his personal information</h4>
+            </div>
+            <div ng-show="!friend || !user.hidePI">
+               
+                <br />
+                <h5>Username</h5>
+                <h6>{{user.username}}</h6>
+                <h5>Full Name</h5>
+                <h6>{{user.firstName}} {{user.lastName}}</h6>
+                <h5>Email</h5>
+                <h6>{{user.email}}</h6>
+            </div>
+
+            <form ng-show="!friend">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="hidemodel.PI" ng-change="hidepi()" id="pi"> Hide Personal Info from other users
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="hidemodel.LI" ng-change="hideli()" id="lists"> Hide Lists from other users
+                    </label>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="header container" ng-show="!userex && friend">
+        <button ng-show="!following" ng-click="follow(user)" class="btn btn-primary pull-left remove" aria-label=" left align">
+            Follow Me
+        </button>
+        <button ng-show="following" ng-click="unfollow(user)" class="btn btn-danger pull-left remove" aria-label=" left align">
+            Unfollow Me
+        </button>
+    </div>
+    <br />
+    
+    <div class=" container" ng-show="!userex && friend && user.hideLI">
+        <h2>Lists</h2>
+        <h3>This user doesn't want to share his lists</h3>
+    </div>
+    <div class="container" ng-show="!userex && (!friend || !user.hideLI)">
+        <h3>Lists</h3>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href=".sectionA">Reading List</a></li>
+            <li><a data-toggle="tab" href=".sectionB">Wish List</a></li>
+            <li><a data-toggle="tab" href=".sectionC">Complete List</a></li>
+            <li ng-show="!friend"><a data-toggle="tab" href=".sectionF">Following</a></li>
+            <li ng-show="!friend && user.role == 'admin'"><a data-toggle="tab" href=".sectionD">User List</a></li>
+            <li ng-show="!friend && user.role == 'admin'"><a data-toggle="tab" href=".sectionE">Admin List</a></li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active sectionA">
+                <h3>Reading List</h3>
+                <table class="table table-striped">
+                    <tr ng-repeat="list in user.reading">
+                        <td class="col-md-10 col-xs-10"><a ng-click="Display(list)" class=" acthover"><h4>{{list}}</h4></a></td>
+                        <td class="col-md-2 col-xs-2">
+                            <button ng-show="!friend" ng-click=" Remove(list)" class="btn btn-danger pull-right remove " aria-label=" left align">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade sectionB">
+                <h3>Wish List</h3>
+                <table class="table table-striped">
+                    <tr ng-repeat="wish in user.wishing">
+                        <td class="col-md-10 col-xs-10"><a ng-click="Display(wish)" class="acthover"><h4>{{wish}}</h4></a></td>
+                        <td class="col-md-2 col-xs-2">
+                            <button ng-show="!friend" ng-click="Remove(wish)" class="btn btn-danger pull-right remove " aria-label=" left align">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade sectionC">
+                <h3>Complete List</h3>
+                <table class="table table-striped">
+                    <tr ng-repeat="complete in user.complete">
+                        <td class="col-md-10 col-xs-10"><a ng-click="Display(complete)"><h4 class="acthover">{{complete}}</h4></a></td>
+                        <td class="col-md-2 col-xs-2">
+                            <button ng-show="!friend" ng-click="Remove(complete)" class="btn btn-danger pull-right remove" aria-label=" left align">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade sectionF">
+                <h3>Following List</h3>
+                <table class="table table-striped">
+                    <tr ng-repeat="follow in user.follow">
+                        <td class="col-md-10 col-xs-10"><a ng-click="GoUser(follow)"><h4 class="acthover">{{follow}}</h4></a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade sectionD">
+                <h3>User List</h3>
+                <table class="table table-striped">
+                    <thead id="head">
+                        <tr class="line">
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>email</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="template" ng-repeat="User in users" ng-show="User.role != 'admin'">
+                            <td>{{User.firstName}}</td>
+                            <td>{{User.lastName}}</td>
+                            <td>{{User.username}}</td>
+                            <td>{{User.email}}</td>
+                            <td>
+                                <button ng-click="remove(User)" class="btn btn-danger pull-right remove" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade sectionE">
+                <h3>Admin List</h3>
+                <table class="table table-striped">
+                    <thead id="head">
+                        <tr class="line">
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="template" ng-repeat="User in users" ng-show="User.role == 'admin'">
+                            <td>{{User.firstName}}</td>
+                            <td>{{User.lastName}}</td>
+                            <td>{{User.username}}</td>
+                            <td>{{User.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

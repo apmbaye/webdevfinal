@@ -1,0 +1,16 @@
+﻿.test{
+   background-image:url(../../img/Untitled.png);
+   background-repeat:no-repeat;
+
+   background-size:cover;
+   background-color:blue;
+
+   height:1000px;
+}
+
+.form-signin-heading{
+    color:black;
+}
+#wrongpass{
+   color:red;
+}
